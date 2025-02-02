@@ -77,8 +77,8 @@ namespace PantheonMapGamebar
             var locX = Math.Floor(float.Parse(match.Groups[1].Value));
             var locZ = Math.Floor(float.Parse(match.Groups[2].Value));
 
-            if (locX == locXCache || locZ == locZCache)
-                return;
+            /*if (locX == locXCache || locZ == locZCache)
+                return;*/
 
             locXCache = locX;
             locZCache = locZ;
