@@ -19,6 +19,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Timers;
+using System.Diagnostics;
+using Windows.System.Threading;
 //using TextCopy;
 
 
@@ -34,6 +36,8 @@ namespace PantheonMapGamebar
         private double locXCache = 0;
         private double locZCache = 0;
         private string baseUrl = "https://shalazam.info/maps/1";
+        private bool mapUpdateNeeded = false;
+        private ThreadPoolTimer PeriodicTimer = null;
 
         private XboxGameBarWidget widget = null;
         private XboxGameBarWidgetControl widgetControl = null;
@@ -43,33 +47,24 @@ namespace PantheonMapGamebar
         private XboxGameBarHotkeyWatcher hotkeyWatcher = null;
         private XboxGameBarWidgetActivity widgetActivity = null;
 
+        private SolidColorBrush widgetDarkThemeBrush = null;
+        private SolidColorBrush widgetLightThemeBrush = null;
+
         public MainPage()
         {
-            this.InitializeComponent();
-
-
+            this.InitializeComponent();           
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             widget = e.Parameter as XboxGameBarWidget;
 
-            mapView.Source = new System.Uri(baseUrl);
+            widget.RequestedThemeChanged += Widget_RequestedThemeChanged;
 
-            
-            // causes crash, need to somehow ensure our window is visible before accessing the clipboard
-            /*Windows.ApplicationModel.DataTransfer.Clipboard.ContentChanged += async (s, b) =>
-            {
-                //DataPackageView dataPackageView = Clipboard.GetContent();
-                /*if (dataPackageView.Contains(StandardDataFormats.Text))
-                {
-                    string text = await dataPackageView.GetTextAsync();
-                    // To output the text from this example, you need a TextBlock control
-                    TextOutput.Text = "Clipboard now contains: " + text;
-                }
-                var text = ClipboardService.GetText();
-                ParseMapData(text);
-            };*/
+            widgetDarkThemeBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 38, 38, 38));
+            widgetLightThemeBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 219, 219, 219));
+
+            mapView.Source = new System.Uri(baseUrl);           
         }
 
         private void ParseMapData(string clipboard)
@@ -82,8 +77,8 @@ namespace PantheonMapGamebar
             var locX = Math.Floor(float.Parse(match.Groups[1].Value));
             var locZ = Math.Floor(float.Parse(match.Groups[2].Value));
 
-            /*if (locX == locXCache || locZ == locZCache)
-                return;*/
+            if (locX == locXCache || locZ == locZCache)
+                return;
 
             locXCache = locX;
             locZCache = locZ;
@@ -123,6 +118,20 @@ namespace PantheonMapGamebar
         {
             baseUrl = "https://shalazam.info/maps/3";
             mapView.Source = new System.Uri(baseUrl);
+        }
+
+        private void SetBackgroundColor()
+        {
+            this.RequestedTheme = widget.RequestedTheme;
+            BackgroundGrid.Background = (widget.RequestedTheme == ElementTheme.Dark) ? widgetDarkThemeBrush : widgetLightThemeBrush;
+        }
+
+        private async void Widget_RequestedThemeChanged(XboxGameBarWidget sender, object args)
+        {
+            await mapView.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            {
+                SetBackgroundColor();
+            });
         }
     }
 }

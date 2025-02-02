@@ -9,21 +9,21 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid >
+    <Grid x:Name="BackgroundGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
 
-        <Grid x:Name="FirstGrid" Grid.Column="0" Grid.Row="0" Background="black" >
-            <Button x:Name="btnUpdate" Content="Update" Margin="5,20,5,5" VerticalAlignment="Top" Width="100" Background="white" Click="btnUpdate_click" FocusVisualPrimaryBrush="white"/>
-            <Button x:Name="btnMain" Content="Main" Margin="0,57,0,0" VerticalAlignment="Top" Width="100" Background="white" Click="btnMain_click" FocusVisualPrimaryBrush="white" HorizontalAlignment="Center"/>
-            <Button x:Name="btnHC" Content="Halnir's Cave" Margin="0,94,0,0" VerticalAlignment="Top" Width="100" Background="white" Click="btnHC_click" FocusVisualPrimaryBrush="white" HorizontalAlignment="Center"/>
-            <Button x:Name="btnGC" Content="Goblin Cave" Margin="0,131,0,0" VerticalAlignment="Top" Width="100" Background="white" Click="btnGC_click" FocusVisualPrimaryBrush="white" HorizontalAlignment="Center"/>
+        <Grid x:Name="FirstGrid" Grid.Column="0" Grid.Row="0" >
+            <Button x:Name="btnUpdate" Content="Update" Margin="5,20,5,5" VerticalAlignment="Top" Width="100" Click="btnUpdate_click" />
+            <Button x:Name="btnMain" Content="Main" Margin="0,57,0,0" VerticalAlignment="Top" Width="100" Click="btnMain_click" HorizontalAlignment="Center"/>
+            <Button x:Name="btnHC" Content="Halnir's Cave" Margin="0,94,0,0" VerticalAlignment="Top" Width="100" Click="btnHC_click" HorizontalAlignment="Center"/>
+            <Button x:Name="btnGC" Content="Goblin Cave" Margin="0,131,0,0" VerticalAlignment="Top" Width="100" Click="btnGC_click"  HorizontalAlignment="Center"/>
 
         </Grid>
-        <Grid x:Name="SecondGrid" Grid.Column="1" Grid.Row="0" Background="black" >
+        <Grid x:Name="SecondGrid" Grid.Column="1" Grid.Row="0" >
             <controls:WebView2 x:Name="mapView" />
         </Grid>
 
