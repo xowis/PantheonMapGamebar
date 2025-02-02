@@ -19,6 +19,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Timers;
+//using TextCopy;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -54,6 +55,21 @@ namespace PantheonMapGamebar
             widget = e.Parameter as XboxGameBarWidget;
 
             mapView.Source = new System.Uri(baseUrl);
+
+            
+            // causes crash, need to somehow ensure our window is visible before accessing the clipboard
+            /*Windows.ApplicationModel.DataTransfer.Clipboard.ContentChanged += async (s, b) =>
+            {
+                //DataPackageView dataPackageView = Clipboard.GetContent();
+                /*if (dataPackageView.Contains(StandardDataFormats.Text))
+                {
+                    string text = await dataPackageView.GetTextAsync();
+                    // To output the text from this example, you need a TextBlock control
+                    TextOutput.Text = "Clipboard now contains: " + text;
+                }
+                var text = ClipboardService.GetText();
+                ParseMapData(text);
+            };*/
         }
 
         private void ParseMapData(string clipboard)
