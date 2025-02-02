@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="PantheonMapGamebar.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PantheonMapGamebar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid x:Name="FirstGrid" Grid.Column="0" Grid.Row="0" Background="black" >
+            <Button x:Name="btnUpdate" Content="Update" Margin="5,20,5,5" VerticalAlignment="Top" Width="100" Background="white" Click="btnUpdate_click" FocusVisualPrimaryBrush="white"/>
+            <Button x:Name="btnMain" Content="Main" Margin="0,57,0,0" VerticalAlignment="Top" Width="100" Background="white" Click="btnMain_click" FocusVisualPrimaryBrush="white" HorizontalAlignment="Center"/>
+            <Button x:Name="btnHC" Content="Halnir's Cave" Margin="0,94,0,0" VerticalAlignment="Top" Width="100" Background="white" Click="btnHC_click" FocusVisualPrimaryBrush="white" HorizontalAlignment="Center"/>
+            <Button x:Name="btnGC" Content="Goblin Cave" Margin="0,131,0,0" VerticalAlignment="Top" Width="100" Background="white" Click="btnGC_click" FocusVisualPrimaryBrush="white" HorizontalAlignment="Center"/>
+
+        </Grid>
+        <Grid x:Name="SecondGrid" Grid.Column="1" Grid.Row="0" Background="black" >
+            <controls:WebView2 x:Name="mapView" />
+        </Grid>
+
+
+
+    </Grid>
+
+
+</Page>
